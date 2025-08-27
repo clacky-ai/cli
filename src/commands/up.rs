@@ -343,15 +343,18 @@ pub async fn command(args: Args) -> Result<()> {
                     DeploymentStatus::SUCCESS => {
                         println!("{}", "Deploy complete".green().bold());
                         if ci_mode {
+                            tokio::time::sleep(Duration::from_secs(2)).await;
                             std::process::exit(0);
                         }
                     }
                     DeploymentStatus::FAILED => {
                         println!("{}", "Deploy failed".red().bold());
+                        tokio::time::sleep(Duration::from_secs(2)).await;
                         std::process::exit(1);
                     }
                     DeploymentStatus::CRASHED => {
                         println!("{}", "Deploy crashed".red().bold());
+                        tokio::time::sleep(Duration::from_secs(2)).await;
                         std::process::exit(1);
                     }
                     _ => {}
